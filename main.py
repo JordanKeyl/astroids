@@ -48,6 +48,7 @@ def main():
                     sys.exit()
                 if asteroid.collides_with(shot):
                     log_event("asteroid_shot")
+                    asteroid.split()
                     shot.kill()
                     asteroid.kill()
 
