@@ -1,6 +1,6 @@
 import pygame
 import sys
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from constants import *
 from logger import log_state, log_event
 from player import Player
 from asteroids import Asteroid
@@ -53,8 +53,15 @@ def main():
                     log_event("asteroid_shot")
                     asteroid.split()
                     shot.kill()
+
+                    if asteroid.radius <= ASTEROID_MIN_RADIUS:
+                        score += 3
+                    elif asteroid.radius >= ASTEROID_MAX_RADIUS:
+                        score += 1
+                    else:
+                        score += 2
+
                     asteroid.kill()
-                    score += 1
 
         screen.fill("black")
 
