@@ -11,7 +11,9 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
+    font = pygame.font.SysFont(None, 36)
     dt = 0
+    score = 0
 
     # groups here
     shots = pygame.sprite.Group()
@@ -45,17 +47,22 @@ def main():
                 if asteroid.collides_with(player):
                     log_event("player_hit")
                     print("Game over!")
+                    print(f"Score: {score}")
                     sys.exit()
                 if asteroid.collides_with(shot):
                     log_event("asteroid_shot")
                     asteroid.split()
                     shot.kill()
                     asteroid.kill()
+                    score += 1
 
         screen.fill("black")
 
         for sprite in drawable:
             sprite.draw(screen)
+
+        score_surface = font.render(f"Score: {score}", True, (255, 255, 255))
+        screen.blit(score_surface, (10, 10))
 
         pygame.display.flip()
 
